@@ -85,6 +85,16 @@ Inspired by real-world use cases from **Pickering Laboratories**.
 3. Deploy the frontend via Lovable.
 4. Activate the workflow.
 
+
+## ⚙️ Workflow Files
+
+- **n8n Workflow (JSON):**  
+  👉 [Download Workflow](workflow.json)
+
+- **Workflow Diagram & Visual Resources:**  
+  👉 [View Workflow Diagrams](workflow_diagram_links.md)
+
+
 ---
 
 ## ⚠️ Disclaimer
@@ -94,3 +104,4 @@ This project is a **demonstration system for portfolio and educational purposes*
 
 ## 👤 Author
 **Kennedy**
+
