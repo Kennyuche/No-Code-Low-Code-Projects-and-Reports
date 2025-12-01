@@ -85,6 +85,9 @@ Inspired by real-world use cases from **Pickering Laboratories**.
 3. Deploy the frontend via Lovable.
 4. Activate the workflow.
 
+## ⚙️ Workflow File
+The full n8n workflow design can be downloaded here:
+👉 [Download Workflow JSON](AI_Product_Service_Assistant/01_Product_and_Service_Assistant_Workflow_Design.json)
 
 ---
 ## ⚠️ Disclaimer
@@ -94,6 +97,7 @@ This project is a **demonstration system for portfolio and educational purposes*
 
 ## 👤 Author
 **Kennedy**
+
 
 
 
