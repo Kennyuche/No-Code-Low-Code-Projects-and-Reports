@@ -1,0 +1,361 @@
+{
+  "name": "RAG Agent",
+  "nodes": [
+    {
+      "parameters": {
+        "public": true,
+        "initialMessages": "Hi! 👋, Welcome to Pickering Laboratories. How can I assist you today?",
+        "options": {
+          "title": "PICKERING LABORATORIES"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        -736,
+        16
+      ],
+      "id": "bdc6f182-7d60-4e3c-8676-8ce20c29b510",
+      "name": "When chat message received",
+      "webhookId": "f5210e00-4e24-4876-9f4b-b8ce6264d0aa"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "You are the Pickering Laboratories RAG Assistant.\nYour answers must be grounded in the retrieved content from the Supabase vector database.\nUse the retrieved chunks as your source of truth.\nDo not generate unsupported claims or add information not found in the knowledge base.\n\nResponse guidelines:\n\nAlways be polite, professional, and helpful.\n\nStructure answers clearly (lists, tables, bullet points).\n\nExplain technical concepts simply.\n\nAsk clarifying questions when needed.\n\nIf the retrieved content does not contain the answer, state this politely and suggest next steps.\n\nProvide only company's website address as contact information if requested.\n\nYour mission is to help users learn about Pickering Laboratories' products and services with clarity, accuracy, and professionalism."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3,
+      "position": [
+        -528,
+        16
+      ],
+      "id": "f5315e6f-6a43-463b-8cd8-092ddcf74aed",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "tableName": "langchain_chat_histories"
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryPostgresChat",
+      "typeVersion": 1.3,
+      "position": [
+        -528,
+        224
+      ],
+      "id": "29dea851-770a-477a-898d-b397f5458629",
+      "name": "Postgres Chat Memory",
+      "credentials": {
+        "postgres": {
+          "id": "w9rcAFY3LUqnW3gY",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "retrieve-as-tool",
+        "toolDescription": "Use this to search for information in the retrieved documents",
+        "tableName": {
+          "__rl": true,
+          "value": "documents",
+          "mode": "list",
+          "cachedResultName": "documents"
+        },
+        "topK": 3,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreSupabase",
+      "typeVersion": 1.3,
+      "position": [
+        -336,
+        224
+      ],
+      "id": "fbd419a1-55de-43e7-9080-7521813245e0",
+      "name": "Supabase Vector Store",
+      "credentials": {
+        "supabaseApi": {
+          "id": "OD3h4i3Dah6Xnlow",
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatCohere",
+      "typeVersion": 1,
+      "position": [
+        -672,
+        224
+      ],
+      "id": "59461ebd-17d6-42de-919e-5bcafbe33636",
+      "name": "Cohere Chat Model",
+      "credentials": {
+        "cohereApi": {
+          "id": "uZnc6EimxqiejgWo",
+          "name": "CohereApi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelName": "embed-english-v3.0"
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsCohere",
+      "typeVersion": 1,
+      "position": [
+        -304,
+        384
+      ],
+      "id": "26249178-ceb7-4f00-af7a-8d39a68de804",
+      "name": "Embeddings Cohere",
+      "credentials": {
+        "cohereApi": {
+          "id": "uZnc6EimxqiejgWo",
+          "name": "CohereApi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "insert",
+        "tableName": {
+          "__rl": true,
+          "value": "documents",
+          "mode": "list",
+          "cachedResultName": "documents"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreSupabase",
+      "typeVersion": 1.3,
+      "position": [
+        -1232,
+        48
+      ],
+      "id": "22bf0d81-d43b-41bd-b49d-09dae7dddec7",
+      "name": "Supabase Vector Store1",
+      "credentials": {
+        "supabaseApi": {
+          "id": "OD3h4i3Dah6Xnlow",
+          "name": "Supabase account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "dataType": "binary",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
+      "typeVersion": 1.1,
+      "position": [
+        -1136,
+        256
+      ],
+      "id": "7a1e9bd1-d1ce-4bb4-9733-3991cde6877e",
+      "name": "Default Data Loader"
+    },
+    {
+      "parameters": {
+        "modelName": "embed-english-v3.0"
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsCohere",
+      "typeVersion": 1,
+      "position": [
+        -1360,
+        256
+      ],
+      "id": "8074965d-40cb-47e5-8acd-c750fd9c22af",
+      "name": "Embeddings Cohere1",
+      "credentials": {
+        "cohereApi": {
+          "id": "uZnc6EimxqiejgWo",
+          "name": "CohereApi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Document Embedding (Knowledge Base)",
+        "height": 288,
+        "width": 544,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -1456,
+        -96
+      ],
+      "typeVersion": 1,
+      "id": "a4cc6c22-a046-49de-af6a-fedab9efec4d",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "## Retrieval Augmented Generation\n### Information Retrieval from Knowledge base\n\n",
+        "height": 272,
+        "width": 624,
+        "color": 5
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -784,
+        -96
+      ],
+      "typeVersion": 1,
+      "id": "a286ae9f-25a2-4af7-a230-8fd70ceb2bf6",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "operation": "download",
+        "fileId": {
+          "__rl": true,
+          "value": "1fEmddtg42iEsJ-5UZgj2S2cK2WxA5GaI",
+          "mode": "list",
+          "cachedResultName": "Pickering-Labs-Catalog.pdf",
+          "cachedResultUrl": "https://drive.google.com/file/d/1fEmddtg42iEsJ-5UZgj2S2cK2WxA5GaI/view?usp=drivesdk"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        -1440,
+        48
+      ],
+      "id": "0eb4e24e-8818-492e-a6fe-0799737cdc4d",
+      "name": "Download file",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "7WDqg2tHkCyOIe8c",
+          "name": "Pickering_Lab_Catalogue"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": " # Product and Service Assistant",
+        "height": 800,
+        "width": 1504,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -1536,
+        -240
+      ],
+      "typeVersion": 1,
+      "id": "14c7fe11-f3db-41d2-b9f1-dd2bbc93bfb9",
+      "name": "Sticky Note2"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres Chat Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Supabase Vector Store": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cohere Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings Cohere": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Supabase Vector Store",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Default Data Loader": {
+      "ai_document": [
+        [
+          {
+            "node": "Supabase Vector Store1",
+            "type": "ai_document",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings Cohere1": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Supabase Vector Store1",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download file": {
+      "main": [
+        [
+          {
+            "node": "Supabase Vector Store1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false
+  },
+  "versionId": "8e546af8-985d-4fd4-ab84-38e30c5e7e85",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "244aa164982ed955024f2f1c48f49b08d4167757c29dc4c5ba894cc35582e71a"
+  },
+  "id": "21kfDXBS4DEepHcD",
+  "tags": []
+}
