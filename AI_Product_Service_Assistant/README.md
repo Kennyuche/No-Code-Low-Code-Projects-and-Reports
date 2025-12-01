@@ -84,6 +84,10 @@ Inspired by real-world use cases from **Pickering Laboratories**.
    - Supabase  
 3. Deploy the frontend via Lovable.
 4. Activate the workflow.
+   
+
+![Product and Service Assistant Workflow](AI_Product_Service_Assistant/02_Product_and_Service_Assistant_Workfow_Diagram.png)
+
 
 ---
 
@@ -94,3 +98,4 @@ This project is a **demonstration system for portfolio and educational purposes*
 
 ## 👤 Author
 **Kennedy**
+
