@@ -28,13 +28,6 @@ The projects focus on **process automation, AI orchestration, and scalable busin
   AI-powered product and service automation system built using n8n + RAG.  
   🔗 [View Project](https://github.com/Kennyuche/No-Code-Low-Code-Project-Reports/tree/main/AI_Product_Service_Assistant)
 
-- **Automating Business Analysis with Agentic AI**  
-  Autonomous AI system for interpreting business data and generating insights automatically.  
-  🔗 [View Project](https://github.com/Kennyuche/No-Code-Low-Code-Project-Reports/blob/main/Business_process_reports.md)
-
-- **Project Report on GenAI Powered Data Analytics**  
-  Technical report on applying Generative AI to automated data analytics workflows.  
-  🔗 [View Project](https://github.com/Kennyuche/No-Code-Low-Code-Project-Reports/blob/main/Project_Report_Links.md)
 
 
 
